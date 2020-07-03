@@ -1,0 +1,9 @@
+- name: Install python-psutil package
+  apt: name=python-psutil
+
+- name: Copy wallpaper file
+  copy: src=files/wallpaper.jpg dest=/home/nikza/.wallpaper.jpg owner=nikza group=nikza mode=600
+
+- name: Set GNOME Wallpaper
+  become_user: nikza
+  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/nikza/.wallpaper.jpg'"
