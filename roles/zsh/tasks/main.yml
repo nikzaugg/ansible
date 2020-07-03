@@ -1,0 +1,24 @@
+- name: Install zsh
+  apt:
+    name: zsh
+    state: latest
+
+- name: Install Starship Prompt
+  shell:
+    cmd: curl -fsSL https://starship.rs/install.sh | bash -s -- -y
+
+
+- name: Add Custom .zshrc
+  become: yes
+  become_user: "{{username}}"
+  template:
+    src: .zshrc
+    dest: "/home/{{username}}/.zshrc"
+    mode: "0700"
+
+# need to relog in order for zsh to be recognized as the new default shell
+- name: Set zsh as default shell
+  become: yes
+  user:
+    name: '{{username}}'
+    shell: /bin/zsh

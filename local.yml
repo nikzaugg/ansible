@@ -2,4 +2,21 @@
   hosts: localhost
   become: true
   roles:
-    - ubuntu
+    - common
+    - vscode
+    - zsh
+
+  vars:
+    username: nik
+
+    apt_packages:
+    - git
+    - jq
+    - python3
+    - python3-pip
+    - mc
+    - curl
+    - tilix
+    - htop
+    - tldr
+    - caffeine

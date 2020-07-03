@@ -1,0 +1,1 @@
+```ansible-galaxy install username.rolename -p /proj/provision/roles/```
