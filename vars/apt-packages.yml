@@ -1,0 +1,5 @@
+apt_packages:
+  - mc
+  - curl
+  - tilix
+  - htop
