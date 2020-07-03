@@ -1,4 +1,5 @@
 apt_packages:
+  - python3-pip
   - mc
   - curl
   - tilix

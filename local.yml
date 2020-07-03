@@ -1,14 +1,5 @@
-# inspired by https://opensource.com/article/18/3/manage-your-workstation-configuration-ansible-part-2
-
-- hosts: localhost
+- name: Setup My Ubuntu Machine
+  hosts: localhost
   become: true
-  pre_tasks:
-    - name: update repositories
-      apt: update_cache=yes
-      changed_when: False
-
-  tasks:
-    - include: tasks/users.yml
-    - include: tasks/cron.yml
-    - include: tasks/packages.yml
-    - include: tasks/gnome.yml
+  roles:
+    - ubuntu
