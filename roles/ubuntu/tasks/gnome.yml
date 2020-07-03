@@ -14,7 +14,7 @@
   become_user: nik
   dconf: 
     key: /org/gnome/desktop/interface/clock-format
-    value: "'12h'"
+    value: "'24h'"
 
 - name: Set GNOME Wallpaper
   become_user: nik

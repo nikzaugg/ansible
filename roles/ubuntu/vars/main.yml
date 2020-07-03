@@ -4,3 +4,4 @@ apt_packages:
   - curl
   - tilix
   - htop
+  - tldr
