@@ -1,28 +1,78 @@
 - name: Install zsh
+  become: yes
+  become_user: '{{username}}'
   apt:
     name: zsh
     state: latest
 
+- name: Install git
+  become: yes
+  become_user: '{{username}}'
+  apt:
+    name: git
+    state: latest
+
+- name: Check if .zshrc exists
+  become: yes
+  become_user: '{{username}}'
+  stat:
+    path: ~/.zshrc
+  register: stat_rc_result
+
+- name: Check if .oh-my-zsh exists
+  become: yes
+  become_user: '{{username}}'
+  stat:
+    path: ~/.oh-my-zsh
+  register: stat_oh_my_zsh_result
+
+- name: Cloning  oh-my-zsh
+  become: yes
+  become_user: '{{username}}'
+  git: repo=https://github.com/robbyrussell/oh-my-zsh
+    dest=~/.oh-my-zsh
+  when: not stat_oh_my_zsh_result.stat.exists
+
+#####################################################
+# OH MY ZSH PLUGINS
+#####################################################
+- name: Check if zsh-autosuggestions plugin exists
+  become: yes
+  stat:
+    path: /home/nik/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  register: zsh_autosuggestions_dir
+
+# https://github.com/zsh-users/zsh-autosuggestions
+- name: Install auto-suggestion plugin for zsh
+  become_user: '{{username}}'
+  shell:
+    cmd: git clone https://github.com/zsh-users/zsh-autosuggestions /home/nik/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  when: not zsh_autosuggestions_dir.stat.exists
+
+#####################################################
+# STARSHIP PROMPT
+#####################################################
 - name: Install Starship Prompt
+  become: yes
+  become_user: '{{username}}'
   shell:
     cmd: curl -fsSL https://starship.rs/install.sh | bash -s -- -y
 
-# TODO: use a starship.toml template
-
-# TODO: maybe add oh-my-zsh also
-
-# TODO: cleanupn the .zshrc
+#####################################################
+# COPY CUSTOM .zshrc
+#####################################################
 - name: Add Custom .zshrc
   become: yes
-  become_user: "{{username}}"
+  become_user: '{{username}}'
   template:
     src: .zshrc
-    dest: "/home/{{username}}/.zshrc"
-    mode: "0700"
+    dest: '/home/{{username}}/.zshrc'
+    mode: '0700'
 
 # need to relog in order for zsh to be recognized as the new default shell
 - name: Set zsh as default shell
   become: yes
+  become_user: '{{username}}'
   user:
     name: '{{username}}'
     shell: /bin/zsh

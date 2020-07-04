@@ -1,0 +1,5 @@
+- name: Install FiraCode
+  apt:
+    name: fonts-firacode
+    state: latest
+# TODO: also install Jetbrains Mono

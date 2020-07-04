@@ -1,18 +1,88 @@
+---
 language: python
-python: '2.7'
-sudo: false
-addons:
-  apt:
-    packages:
-    - python-pip
+
+env:
+  global:
+    - MOLECULEW_USE_SYSTEM=true
+
+# Spin off separate builds for each of the following versions
+# of Ansible and Linux.
+matrix:
+  include:
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=centos
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=default
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=ubuntu-min
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=fedora
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=opensuse
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULE_SCENARIO=python3
+      python: '3.6'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=centos
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=default
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=ubuntu-min
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=fedora
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=opensuse
+      python: '2.7'
+    - env:
+        - MOLECULEW_ANSIBLE=2.9.1
+        - MOLECULE_SCENARIO=python3
+      python: '3.6'
+
+# Require Ubuntu 16.04
+dist: xenial
+
+# Require Docker
+services:
+  - docker
+
 install:
-- pip install ansible
-- ansible --version
-- printf '[defaults]\nroles_path = ../' > ansible.cfg
+  # Install dependencies
+  - ./moleculew wrapper-install
+
+  # Display versions
+  - ./moleculew wrapper-versions
+
 script:
-- ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ./moleculew test --scenario-name=$MOLECULE_SCENARIO
+
+cache:
+  directories:
+    - $HOME/.moleculew
+
+branches:
+  only:
+    - master
+    - /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)([\.\-].*)?$/
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-  slack:
-    secure: u6tFFt48sbU3PtNh6DqQhoKYooyXljvDY5Q9vp5Udy4ezpAIGvA52VukMmdO4Gq9PlRTEDnkm1G9s/QrbLvcn7FCbZtCiEKK6NXvl15MlmRiLh2u3/A2dGtBYGb+7tt2YaCHcwhqfVW/aNK7PEMoJchWxvrpzXj5ORllU3XXmlAkK1/hWDhQT/VPrNlOB1XmRNYgoAfKinl2h8YQNsLLrtoHp3bKzN5/rvmnaNUUO1gVMZZxWhSGbJCtVTLHO9rWxrNqhpFH2BEihnTQJij89Zv4N7UsYJkCcVAGgtD256RJdvtJD59nYDb6ovRbjTqKYg/bxX9dipWXl3tJnAun2uM1zNMICwHsFr/aUxpjZZVe+WY7Se1V0+Eulyb5IwefWtbf2ljg5yZEgY3xltmcAX2k2AjYRADb1ThAPFdeYHTVcuHbpXQzjQs8w37prgjHh9BkEVBdg5UInbUHIv+ICq2m4Bd+Zf+kuwD7oijz011okAkGEQgqaXPv55N2KMOpZjh4bU4FpGeMlOGLYxHR1Aqr0KG62h6Xtjr4eloBPMSenSNAit1922EoZ0TmHUMyQiC0omqsYIqAT+G2FsRVGSzBLEh4EaRPVJ1cniISFG5Rz4sLj6UDF47VgnMDPbYKS3FXgrx1zYsqwHhwKwDNTGSbwoKIcnQUWq9dEHe1Sh4=
-  email: false

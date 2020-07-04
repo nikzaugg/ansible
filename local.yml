@@ -3,20 +3,50 @@
   become: true
   roles:
     - common
-    - vscode
+    #TODO: add role for snaps? spotify, bitwarden etc.
+    #TODO: add role for nvm
+    #TODO: add role for nodejs
+    #TODO: add role for java
     - zsh
+    - fonts
+    - role: vscode
+      users:
+        - username: nik
+          visual_studio_code_extensions:
+            - shan.code-settings-sync
+            - ms-python.python
+            - esbenp.prettier-vscode
+            - coenraads.bracket-pair-colorizer-2
+            - dbaeumer.vscode-eslint
+            - johnpapa.vscode-peacock
+            - dsznajder.es7-react-js-snippets
+          visual_studio_code_settings_overwrite: yes
+          visual_studio_code_settings:
+            {
+              'editor.fontFamily': "'Fira Code', Consolas, 'Courier New', monospace,'Segoe UI emoji', 'Segoe UI Symbol'",
+              'editor.fontLigatures': true,
+              'editor.defaultFormatter': 'esbenp.prettier-vscode',
+              'editor.formatOnType': false,
+              'editor.formatOnSave': true,
+              'prettier.printWidth': 120,
+              'prettier.singleQuote': true,
+              'eslint.run': 'onSave',
+              'peacock.affectTabActiveBorder': true,
+              'peacock.affectAccentBorders': true,
+              'peacock.surpriseMeOnStartup': true,
+            }
 
   vars:
     username: nik
 
     apt_packages:
-    - git
-    - jq
-    - python3
-    - python3-pip
-    - mc
-    - curl
-    - tilix
-    - htop
-    - tldr
-    - caffeine
+      - git
+      - jq
+      - python3
+      - python3-pip
+      - mc
+      - curl
+      - tilix
+      - htop
+      - tldr
+      - caffeine
