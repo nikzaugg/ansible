@@ -2,9 +2,9 @@
   hosts: localhost
   become: true
   roles:
-    #TODO: add role for snaps? spotify, bitwarden etc.
     #TODO: add role for java
     - common
+    # - tilix # Not working at the moment
     - zsh
     - fonts
     - role: nvm
@@ -52,7 +52,6 @@
       - python3-pip
       - mc
       - curl
-      - tilix
       - htop
       - tldr
       - caffeine

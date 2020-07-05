@@ -1,0 +1,20 @@
+# Sets tilix and the quake command
+# TODO: does not work as of now...
+
+# - name: Install Tilix
+#   apt:
+#     pkg: tilix
+#     state: latest
+#     update_cache: yes
+
+# - name: Add keyboard shortcut script
+#   become: yes
+#   become_user: '{{username}}'
+#   copy:
+#     src: ../files/set_customshortcut.py
+#     dest: /home/nik/set_customshortcut.py
+
+# - name: Set Tilix Quake Shortcut
+#   become: yes
+#   become_user: '{{username}}'
+#   script: /home/nik/set_customshortcut.py 'Tilix Quake' 'tilix --quake' '<Control>slash'
