@@ -1,0 +1,6 @@
+- name: Install snap packages
+  snap:
+    name: '{{item}}'
+    state: present
+    classic: yes
+  loop: '{{snap_packages}}'

@@ -56,3 +56,11 @@
       - htop
       - tldr
       - caffeine
+
+    snap_packages:
+      - bitwarden
+      - postman
+      - spotify
+
+    startup_packages:
+      - { path: '/usr/bin/caffeine-indicator', name: 'Caffeine Indicator' }

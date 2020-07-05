@@ -1,0 +1,7 @@
+- name: Set startup applications
+  become: yes
+  become_user: '{{username}}'
+  template:
+    src: startup.desktop
+    dest: '/home/{{username}}/.config/autostart/'
+  loop: '{{startup_packages}}'

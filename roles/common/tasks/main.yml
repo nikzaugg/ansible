@@ -3,3 +3,5 @@
 # - include: cron.yml
 - include: packages.yml
 - include: gnome.yml
+- include: snap.yml
+- include: startup-apps.yml
