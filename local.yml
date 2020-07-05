@@ -55,6 +55,7 @@
       - htop
       - tldr
       - caffeine
+      - tree
 
     snap_packages:
       - bitwarden
