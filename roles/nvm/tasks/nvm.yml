@@ -1,0 +1,43 @@
+---
+- name: NVM | nvm | get stats on nvm destination
+  stat:
+    path: '{{ nvm_dest }}'
+  register: nvm_stat
+
+- name: NVM | nvm | create .nvm directory
+  file:
+    path: '{{ nvm_dest }}'
+    group: '{{ nvm_group | default(nvm_user) }}'
+    owner: '{{ nvm_user }}'
+    mode: 0755
+    recurse: yes
+    state: directory
+  when: not nvm_stat.stat.exists
+
+- name: NVM | nvm | download nvm script
+  get_url:
+    dest: '{{ nvm_dest }}'
+    group: '{{ nvm_group | default(nvm_user) }}'
+    owner: '{{ nvm_user }}'
+    mode: 0755
+    url: https://raw.githubusercontent.com/creationix/nvm/{{ nvm_version }}/nvm.sh
+
+- name: NVM | nvm | add nvm line 1 to ~/.bashrc
+  lineinfile:
+    path: '{{ nvm_working_path }}/.bashrc'
+    line: export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+
+- name: NVM | nvm | add nvm line 2 to ~/.bashrc
+  lineinfile:
+    path: '{{ nvm_working_path }}/.bashrc'
+    line: '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+
+- name: NVM | nvm | add nvm line 1 to ~/.zshrc
+  lineinfile:
+    path: '{{ nvm_working_path }}/.zshrc'
+    line: export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+
+- name: NVM | nvm | add nvm line 2 to ~/.zshrc
+  lineinfile:
+    path: '{{ nvm_working_path }}/.zshrc'
+    line: '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'

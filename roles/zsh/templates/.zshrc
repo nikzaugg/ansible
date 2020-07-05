@@ -20,10 +20,3 @@ alias c="clear"
 alias reload="source ~/.zshrc"
 
 eval "$(starship init zsh)"
-
-
-# TODO: nvm
-
-# TODO: conda
-
-# TODO: java?

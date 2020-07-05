@@ -1,0 +1,19 @@
+---
+nvm_version: 'v0.35.3'
+nvm_node_version: '12.18.2'
+nvm_user: vagrant
+# define if group is different from user
+#nvm_group:
+
+shared_packages:
+  - git
+  - curl
+
+debian_packages:
+  - libssl-dev
+
+redhat_packages:
+  - openssl-devel
+
+nvm_working_path: '~'
+nvm_dest: '~/.nvm'

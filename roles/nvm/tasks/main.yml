@@ -1,0 +1,11 @@
+---
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: nvm.yml
+  become_user: '{{ nvm_user }}'
+  become: true
+
+- include: node.yml
+  become_user: '{{ nvm_user }}'
+  become: true

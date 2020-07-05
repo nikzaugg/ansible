@@ -1,0 +1,17 @@
+---
+
+- name: NVM | node | get stats on node
+  stat: path="{{ nvm_dest }}/versions/node/v{{ nvm_node_version }}"
+  register: node_stat
+
+- name: NVM | node | install node
+  shell: "source {{ nvm_dest }}/nvm.sh && nvm install {{ nvm_node_version }}"
+  args:
+     executable: /bin/bash
+  when: not node_stat.stat.exists
+
+- name: NVM | node | set default Node version {{ nvm_node_version }} to be used in new shell
+  shell: "source {{ nvm_dest }}/nvm.sh && nvm alias default {{ nvm_node_version }}"
+  args:
+     executable: /bin/bash
+  when: not node_stat.stat.exists
