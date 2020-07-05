@@ -18,3 +18,10 @@
 #   become: yes
 #   become_user: '{{username}}'
 #   script: /home/nik/set_customshortcut.py 'Tilix Quake' 'tilix --quake' '<Control>slash'
+
+- name: Setup Tilix
+  become: yes
+  become_user: '{{username}}'
+  lineinfile:
+    path: /home/nik/.zshrc
+    line: if [ $TILIX_ID ] || [ $VTE_VERSION ]; then source /etc/profile.d/vte.sh fi

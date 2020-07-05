@@ -4,8 +4,8 @@
   roles:
     #TODO: add role for java
     - common
-    # - tilix # Not working at the moment
     - zsh
+    - tilix # Not working at the moment
     - fonts
     - role: nvm
       nvm_user: '{{username}}'
