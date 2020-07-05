@@ -20,6 +20,8 @@
             - dbaeumer.vscode-eslint
             - johnpapa.vscode-peacock
             - dsznajder.es7-react-js-snippets
+            - vscode-icons-team.vscode-icons
+            - zhuangtongfa.material-theme
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
@@ -34,6 +36,8 @@
               'peacock.affectTabActiveBorder': true,
               'peacock.affectAccentBorders': true,
               'peacock.surpriseMeOnStartup': true,
+              'workbench.iconTheme': 'vscode-icons',
+              'workbench.colorTheme': 'One Dark Pro',
             }
 
   vars:
