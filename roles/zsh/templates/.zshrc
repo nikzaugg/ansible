@@ -19,4 +19,10 @@ alias dev="cd ~/dev/"
 alias c="clear"
 alias reload="source ~/.zshrc"
 
+
+# Tilix vte
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
 eval "$(starship init zsh)"
